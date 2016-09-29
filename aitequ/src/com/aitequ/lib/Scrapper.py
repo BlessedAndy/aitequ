@@ -15,7 +15,7 @@ baidu = "https://www.baidu.com"
 sap = "http://www.sap.com"
 lifehack = "http://www.lifehack.org"
 #Query the website and return the html to the variable 'page'
-page = urlopen(baidu)
+page = urlopen(wiki)
 
 #Parse the html in the 'page' variable, and store it in Beautiful Soup format
 soup = BeautifulSoup(page,"html.parser")
