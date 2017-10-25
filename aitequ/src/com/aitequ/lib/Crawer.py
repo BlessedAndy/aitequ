@@ -57,11 +57,11 @@ def create_cookies():
         with open('zhihucaptcha.gif', 'wb') as f:
             captchaREQ = session.get(captchaURL)
             f.write(captchaREQ.content)
-        loginCaptcha = raw_input('input captcha:\n').strip()
+        loginCaptcha = input('input captcha:\n').strip()
         login_data['captcha'] = loginCaptcha
         # print data
         loginREQ = session.post(loginURL,  headers=headers, data=login_data)  # post return json
-        print loginREQ.content
+        print (loginREQ.content)
 
         with open('cookiefile', 'wb') as f:
             json.dump(session.cookies.get_dict(), f)
@@ -78,7 +78,7 @@ def post_message(urls):
         message_data['_xsrf'] = xsrf
         message_data['member_id'] = member_id
         response = session.post(messageURL, headers=headers, data=message_data)
-        print response
+        print (response)
 
 
 def get_allfollers(user_url):
@@ -89,7 +89,7 @@ def get_allfollers(user_url):
     # print followers_num
     follerows_list = []  # store all followers' url
     cnt = 0
-    for i in xrange((followers_num - 1) / 20 + 1):
+    for i in range((followers_num - 1) / 20 + 1):
         cnt += 1
         if cnt > 5:
             break
@@ -113,12 +113,12 @@ def get_allfollers(user_url):
             r_post = session.post(post_url, data=follower_data, headers=headers)
             # print r_post.text
             followee_list = r_post.json()['msg']
-            for j in xrange(min(followers_num - i * 20, 20)):
+            for j in range(min(followers_num - i * 20, 20)):
                 followee_soup = BeautifulSoup(followee_list[j])
                 user_link = followee_soup.find('h2', class_='zm-list-content-title').a['href']
                 follerows_list.append(user_link)
     for i in follerows_list:
-        print i
+        print (i)
     return follerows_list
 
 if __name__ == '__main__':
